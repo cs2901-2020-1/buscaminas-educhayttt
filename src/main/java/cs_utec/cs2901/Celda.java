@@ -10,9 +10,11 @@ public class Celda {
     };
     public boolean setBomba(){
         if (bomba = false){
-          bomba = true;
-          return false;
-        }else {return true;}
+            bomba = true;
+            return false;
+        }else {
+            return true;
+        }
     }
     public boolean click(){
         if (bomba){
@@ -22,5 +24,6 @@ public class Celda {
     public void flag(){
         flagged = true;
     };
+    Celda(){    }
 
 }
