@@ -8,6 +8,8 @@ public class App
 {
     public static void main( String[] args )
     {
-        Board board = new Board();
+        System.out.println("Welcome to the cool Minesweeper by Educhay");
+        Game game = new Game();
+
     }
 }

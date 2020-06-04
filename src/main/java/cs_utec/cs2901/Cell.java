@@ -11,7 +11,7 @@ public class Cell {
     }
 
     public boolean setBomba() {
-        if (bomba = false) {
+        if (!bomba) {
             bomba = true;
             return false;
         } else {
@@ -20,6 +20,7 @@ public class Cell {
     }
 
     public boolean click() {
+        revelada = true;
         return bomba;
     }
 
