@@ -8,6 +8,9 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        System.out.println( "¡Bienvenidos a Educhay - Buscaminas!" );
+        System.out.println( "Elija el tamaño del tablero: " );
+        
+        jugar();
     }
 }
