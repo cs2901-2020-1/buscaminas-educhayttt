@@ -6,7 +6,24 @@ public class Board {
     private int numberOfRows;
     private int numberOfColumns;
     private int numberOfBombs;
+    private int counter;
     private Cell[][] board;
+
+    public int getCounter() {
+        /*counter = 0;
+        for (int i = 1; i < numberOfRows-1; i++){
+            for (int j = 1; j < numberOfColumns-1; j++){
+                if (board[i][j].isRevelada()){
+                    counter++;
+                }
+            }
+        }*/
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
 
     public Board() {
         System.out.println("Ingrese las dimensiones del tablero:");
@@ -18,6 +35,7 @@ public class Board {
         System.out.println("_____________________________________");
         System.out.print("Número de bombas: ");
         numberOfBombs = scanner.nextInt();
+        counter = ((numberOfColumns-2) * (numberOfRows-2)) - numberOfBombs;
         createBoard();
     }
 
@@ -88,10 +106,6 @@ public class Board {
         for (int i = 1; i < numberOfRows - 1; i++) {
             for (int j = 1; j < numberOfColumns - 1; j++){
                 int bombas = 0;
-
-                /*if (board[i][j].isBomba()){
-                    break;
-                }*/
                 if (board[i+1][j].isBomba()){
                     bombas++;
                 }
@@ -122,31 +136,38 @@ public class Board {
     }
 
     public boolean click(int row, int col){
-        board[row][col].setRevelada(true);
-        revealBombas();
-        print();
-        if (!board[row][col].isBomba() && board[row][col].getAdjacent()==0){
-            revealAdjacents(row, col);
+        if (!board[row][col].isRevelada()){
+            if (!board[row][col].isBomba()){
+                counter--;
+                if (board[row][col].getAdjacent()==0) {
+                    revealAdjacents(row, col);
+                } else {
+                    board[row][col].setRevelada(true);
+                }
+            }
+            return board[row][col].isBomba();
         }
-        return board[row][col].isBomba();
+        return false;
     }
 
     private void revealAdjacents(int row, int col){
-        if (row < 1 || col < 1 || (col > numberOfColumns - 2) || (row > numberOfRows - 2)){
-            return;
+        if (row >= 1 && col >= 1 && col <= numberOfColumns - 2  && row <= numberOfRows - 2){
+            if (!board[row][col].isRevelada()){
+                board[row][col].setRevelada(true);
+                counter--;
+                if (board[row][col].getAdjacent() != 0){
+                    return;
+                }
+                revealAdjacents(row+1, col); // 2 1
+                revealAdjacents(row+1, col+1); // 2 2
+                revealAdjacents(row, col+1); // 1 2
+                revealAdjacents(row-1, col); // 0 1
+                revealAdjacents(row-1, col+1); // 0 2
+                revealAdjacents(row, col-1); // 1 0
+                revealAdjacents(row+1, col-1); // 2 0
+                revealAdjacents(row-1, col-1); // 0 0
+            }
         }
-        board[row][col].setRevelada(true);
-        if (board[row][col].getAdjacent() != 0){
-            return;
-        }
-        revealAdjacents(row+1, col); // 2 1
-        revealAdjacents(row+1, col+1); // 2 2
-        revealAdjacents(row, col+1); // 1 2
-        revealAdjacents(row-1, col); // 0 1
-        revealAdjacents(row-1, col+1); // 0 2
-        revealAdjacents(row, col-1); // 1 0
-        revealAdjacents(row+1, col-1); // 2 0
-        revealAdjacents(row-1, col-1); // 0 0
     }
 
     public void revealBombas(){
