@@ -8,6 +8,19 @@ public class Board {
     private int numberOfBombs;
     private Cell[][] board;
 
+    public Board() {
+        System.out.println("Ingrese las dimensiones del tablero:");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Número de filas: ");
+        numberOfRows = scanner.nextInt() + 2;
+        System.out.print("Número de columnas: ");
+        numberOfColumns = scanner.nextInt() + 2;
+        System.out.println("_____________________________________");
+        System.out.print("Número de bombas: ");
+        numberOfBombs = scanner.nextInt();
+        createBoard();
+    }
+
     public Cell[][] getBoard() {
         return board;
     }
@@ -22,19 +35,6 @@ public class Board {
 
     public int getNumberOfBombs() {
         return numberOfBombs;
-    }
-
-    public Board() {
-        System.out.println("Ingrese las dimensiones del tablero:");
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Número de filas: ");
-        numberOfRows = scanner.nextInt() + 2;
-        System.out.print("Número de columnas: ");
-        numberOfColumns = scanner.nextInt() + 2;
-        System.out.println("_____________________________________");
-        System.out.print("Número de bombas: ");
-        numberOfBombs = scanner.nextInt();
-        createBoard();
     }
 
     private void createBoard() {
