@@ -10,6 +10,6 @@ public class App
     {
         System.out.println("Welcome to the cool Minesweeper by Educhay");
         Game game = new Game();
-
+        game.play();
     }
 }
